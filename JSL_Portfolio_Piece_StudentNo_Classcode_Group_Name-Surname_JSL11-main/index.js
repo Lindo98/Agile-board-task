@@ -19,19 +19,46 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
+
+  // sidebar menu 
+
 'sidebar-div': document.getElementById('sidebar-div'),
 'side-logo-div': document.getElementById('side-logo-div'),
+'logo': document.getElementById('logo'),
 'boards-nav-links-div': document.getElementById('boards-nav-links-div'),
-'headline-sidepanel': document.getElementById('headline-sidepanel'),
 'side-bar-bottom': document.querySelector('side-bar-bottom'),
 'toggle-div': document.querySelector('toggle-div'),
 'switch': document.getElementById('switch'),
 'label-checkbox-theme': document.getElementById('label-checkbox-theme'),
-'"hide-side-bar-div': document.querySelector('"hide-side-bar-div'),
+'hide-side-bar-div': document.querySelector('hide-side-bar-div'),
 'hide-side-bar-btn': document.getElementById('hide-side-bar-btn'),
-'show-side-bar-btn';do.getElementById('show-side-bar-btn')
+
+// sidebar 
+'show-side-bar-btn': document.getElementById('show-side-bar-btn'),
+
+// main layout: Header 
+
+'layout': document.getElementById('layout'),
+'header': document.getElementById('header'),
+'header-name-div': document.querySelector('header-name-div'),
+'dropdownBtn': document.getElementById('dropdownBtn'),
+'add-new-task-btn': document.getElementById('add-new-task-btn'),
+'edit-board-btn': document.getElementById('edit-board-btn'),
+'editBoardDiv': document.getElementById('editBoardDiv'),
+'deleteBoardBtn': document.getElementById('deleteBoardBtn'),
+
+// main content
+
+'container': document.querySelector('container'),
+'card-column-main': document.querySelector('card-column-main'),
+'column-div': document.querySelectorAll('column-div'),
+'doing-head-div': document.getElementById('doing-head-div'),
+'tasks-container': document.querySelectorAll('tasks-container'),
+'done-head-div': document.getElementById('done-head-div'),
+
 
 }
+
 
 let activeBoard = ""
 
