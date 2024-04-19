@@ -1,7 +1,8 @@
 // TASK: import helper functions from utils
 // TASK: import initialData
+from utils import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions";
 
-
+from initialData import { initialData } from "./initialData"
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
@@ -18,6 +19,17 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
+'sidebar-div': document.getElementById('sidebar-div'),
+'side-logo-div': document.getElementById('side-logo-div'),
+'boards-nav-links-div': document.getElementById('boards-nav-links-div'),
+'headline-sidepanel': document.getElementById('headline-sidepanel'),
+'side-bar-bottom': document.querySelector('side-bar-bottom'),
+'toggle-div': document.querySelector('toggle-div'),
+'switch': document.getElementById('switch'),
+'label-checkbox-theme': document.getElementById('label-checkbox-theme'),
+'"hide-side-bar-div': document.querySelector('"hide-side-bar-div'),
+'hide-side-bar-btn': document.getElementById('hide-side-bar-btn'),
+'show-side-bar-btn';do.getElementById('show-side-bar-btn')
 
 }
 
