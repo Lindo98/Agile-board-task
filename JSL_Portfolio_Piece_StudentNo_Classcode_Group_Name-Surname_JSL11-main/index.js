@@ -1,8 +1,8 @@
 // TASK: import helper functions from utils
 // TASK: import initialData
-from utils import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions";
+import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions";
 
-from initialData import { initialData } from "./initialData"
+import { initialData } from "./initialData"
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
@@ -56,11 +56,39 @@ const elements = {
 'tasks-container': document.querySelectorAll('tasks-container'),
 'done-head-div': document.getElementById('done-head-div'),
 
+// New Task Modal: Form for adding a new task.
+
+'new-task-modal-window': document.getElementById('new-task-modal-window'),
+'input-div': document.querySelectorAll('input-div'),
+'modal-title-input': document.getElementById('modal-title-input'),
+'title-input': document.getElementById('title-input'),
+'modal-desc-input': document.getElementById('modal-desc-input'),
+'desc-input': document.getElementById('desc-input'),
+'modal-select-status': document.getElementById('modal-select-status'),
+'select-status': document.getElementById('select-status'),
+'button-group': document.querySelector('button-group'),
+'create-task-btn': document.getElementById('create-task-btn'),
+'cancel-add-task-btn': document.getElementById('cancel-add-task-btn'),
+
+// Edit Task Modal: Form for editing an existing task's details.
+
+'edit-task-modal-window': document.querySelector('edit-task-modal-window'),
+'edit-task-header': document.getElementById('edit-task-header'),
+'edit-task-title-input': document.getElementById('edit-task-title-input'),
+'edit-btn': document.getElementById('edit-btn'),
+'edit-task-div': document.querySelectorAll('edit-task-div'),
+'edit-task-desc-input': document.getElementById('edit-task-desc-input'),
+'label-modal-window': document.querySelector('label-modal-window'),
+'edit-select-status': document.getElementById('edit-select-status'),
+'edit-task-div button-group': document.querySelector('edit-task-div button-group'),
+'save-task-changes-btn': document.getElementById('save-task-changes-btn'),
+'cancel-edit-btn': document.getElementById('cancel-edit-btn'),
+'delete-task-btn': document.getElementById('delete-task-btn')
 
 }
 
 
-let activeBoard = ""
+let activeBoard = "getTasks"
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
@@ -70,9 +98,9 @@ function fetchAndDisplayBoardsAndTasks() {
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard ;  boards[0]; 
-    elements.headerBoardName.textContent = activeBoard
-    styleActiveBoard(activeBoard)
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
+    elements.headerBoardName.textContent = activeBoard;
+    styleActiveBoard(activeBoard);
     refreshTasksUI();
   }
 }
@@ -86,13 +114,13 @@ function displayBoards(boards) {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-    boardElement.click()  { 
+    boardElement.addEventListener("click", () => { 
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
-      activeBoard = board //assigns active board
+      activeBoard = board; //assigns active board
       localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
       styleActiveBoard(activeBoard)
-    };
+    });
     boardsContainer.appendChild(boardElement);
   });
 
