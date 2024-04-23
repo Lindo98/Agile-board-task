@@ -148,7 +148,6 @@ function displayBoards(boards) {
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
-  const filteredTasks = tasks.filter((task) => task.board === boardName);
 
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
@@ -162,6 +161,9 @@ function filterAndDisplayTasksByBoard(boardName) {
 
     const tasksContainer = document.createElement("div");
     column.appendChild(tasksContainer);
+    const filteredTasks = tasks.filter(
+      (task) => task.board === boardName && task.status === status
+    );
 
     filteredTasks
       .filter((task) => task.status === status)
@@ -225,9 +227,9 @@ function addTaskToUI(task) {
   console.log(taskElement);
 
   tasksContainer.appendChild(taskElement);
+
   // const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  // Loop through stored tasks and render them on the page
   storedTasks.forEach((task) => addTaskToUI(task));
 }
 
@@ -338,13 +340,13 @@ function openEditTaskModal(task) {
 
   saveTaskChangesBtn.addEventListener("click", () => {
     saveTaskChanges(task.id);
+    location.reload();
   });
   // Delete task using a helper function and close the task modal
 
   deleteTaskBtn.addEventListener("click", () => {
     deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
-    location.reload();
   });
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
