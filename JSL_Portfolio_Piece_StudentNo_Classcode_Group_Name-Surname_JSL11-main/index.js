@@ -173,7 +173,7 @@ function filterAndDisplayTasksByBoard(boardName) {
         taskElement.textContent = task.title;
         taskElement.setAttribute("data-task-id", task.id);
 
-        //   tasksContainer.appendChild(taskElement);
+        tasksContainer.appendChild(taskElement);
 
         // Listen for a click event on each task and open a modal
         taskElement.addEventListener("click", () => {
@@ -228,7 +228,9 @@ function addTaskToUI(task) {
 
   tasksContainer.appendChild(taskElement);
 
-  // const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  console.log(initialData);
+
+  //  const storedTasks = JSON.parse(localStorage.getItem("tasks"));
 
   storedTasks.forEach((task) => addTaskToUI(task));
 }
@@ -299,6 +301,8 @@ function addTask(event) {
   if (newTask) {
     addTaskToUI(newTask);
     toggleModal(false);
+    newTask.board = activeBoard;
+    initialData.push(newTask);
     elements.filterDiv.style.display = "none"; // Also hide the filter overlay
     event.target.reset();
 
