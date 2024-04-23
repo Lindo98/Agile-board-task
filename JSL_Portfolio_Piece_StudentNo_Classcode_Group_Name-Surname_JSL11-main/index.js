@@ -50,7 +50,7 @@ const elements = {
   headerNameDiv: document.querySelector(".header-name-div"),
   headerBoardName: document.getElementById("header-board-name"),
   dropdownBtn: document.getElementById("dropdownBtn"),
-  addNewTaskBtn: document.getElementById("add-new-task-btn"),
+  createNewTaskBtn: document.getElementById("add-new-task-btn"),
   editBtn: document.getElementById("edit-board-btn"),
   editBoardDiv: document.getElementById("editBoardDiv"),
   deleteBoardBtn: document.getElementById("deleteBoardBtn"),
@@ -61,7 +61,7 @@ const elements = {
   //MAIN (contains repititions)
   cardColumnMain: document.querySelector(".card-column-main"),
   columnDiv: document.querySelectorAll(".column-div"),
-  taskContainerAll: document.querySelector(".tasks-container"),
+  // taskContainerAll: document.querySelector(".tasks-container"),
 
   //TODO
   todoHeadDiv: document.getElementById("todo-head-div"),
@@ -73,7 +73,7 @@ const elements = {
   doneHeadDiv: document.getElementById("done-head-div"),
 
   //NEW TASK MODAL (form for creating new a task)
-  modalWindow: document.querySelector("modal-window"),
+  modalWindow: document.querySelector(".modal-window"),
   newTaskModalWindow: document.getElementById("new-task-modal-window"),
   inputDiv: document.querySelectorAll(".input-div"),
   modalTitleInput: document.getElementById("modal-title-input"),
@@ -83,11 +83,11 @@ const elements = {
   modalSelectStatus: document.getElementById("modal-select-status"),
   selectStatus: document.getElementById("select-status"),
   btnGroup: document.querySelector(".button-group"),
-  createNewTaskBtn: document.getElementById("create-task-btn"),
+  createTaskBtn: document.getElementById("create-task-btn"),
   cancelAddTaskBtn: document.getElementById("cancel-add-task-btn"),
 
   //EDIT TASK MODAL (form for editing an exisiting task's details)
-  editTaskModal: document.getElementById("edit-task-modal-window"),
+  editTaskModal: document.querySelector(".edit-task-modal-window"),
   editTaskForm: document.getElementById("edit-task-form"),
   editTaskHeader: document.getElementById("edit-task-header"),
   editTaskDiv: document.querySelector(".edit-task-div"),
@@ -220,10 +220,15 @@ function addTaskToUI(task) {
 
   const taskElement = document.createElement("div");
   taskElement.className = "task-div";
-  taskElement.textContent = task.title; // Modify as needed
-  taskElement.setAttribute("data-task-id", task.id);
+  taskElement.textContent = `${task.title}`;
+
+  console.log(taskElement);
 
   tasksContainer.appendChild(taskElement);
+  // const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  // Loop through stored tasks and render them on the page
+  storedTasks.forEach((task) => addTaskToUI(task));
 }
 
 function setupEventListeners() {
@@ -259,9 +264,9 @@ function setupEventListeners() {
   });
 
   // Add new task form submission event listener
-  //  elements.modalWindow.addEventListener('submit',  (event) => {
-  //   addTask(event)
-  // });
+  elements.modalWindow.addEventListener("submit", (event) => {
+    addTask(event);
+  });
 }
 
 // Toggles tasks modal
@@ -294,6 +299,8 @@ function addTask(event) {
     toggleModal(false);
     elements.filterDiv.style.display = "none"; // Also hide the filter overlay
     event.target.reset();
+
+    putTask(newTask);
     refreshTasksUI();
   }
 }
@@ -316,7 +323,7 @@ function toggleTheme() {
 function openEditTaskModal(task) {
   // Set task details in modal inputs
   const titleInput = document.getElementById("edit-task-title-input");
-  const descInput = document.getElementById("edit-task-title-input");
+  const descInput = document.getElementById("edit-task-desc-input");
   const statusSelect = document.getElementById("edit-select-status");
   // Get button elements from the task modal
 
@@ -335,8 +342,9 @@ function openEditTaskModal(task) {
   // Delete task using a helper function and close the task modal
 
   deleteTaskBtn.addEventListener("click", () => {
-    deleteTaskBtn(task.id);
+    deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
+    location.reload();
   });
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
@@ -344,7 +352,7 @@ function openEditTaskModal(task) {
 function saveTaskChanges(taskId) {
   // Get new user inputs
   const titleInput = document.getElementById("edit-task-title-input");
-
+  const descInput = document.getElementById("edit-task-desc-input");
   const statusSelect = document.getElementById("edit-select-status");
 
   // Create an object with the updated task details
