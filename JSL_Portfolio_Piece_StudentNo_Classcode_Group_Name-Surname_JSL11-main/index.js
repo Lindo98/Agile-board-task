@@ -328,7 +328,12 @@ function toggleTheme() {
 
   //save theme preference to local storage
   const isLightTheme = body.classList.contains("light-theme");
-  localStorage.setItem("theme", isLightTheme ? "light" : "dark");
+
+  if (isLightTheme) {
+    logo.src = "./assets/logo-light.svg";
+  } else {
+    logo.src = "./assets/logo-dark.svg";
+  }
 }
 
 function openEditTaskModal(task) {
