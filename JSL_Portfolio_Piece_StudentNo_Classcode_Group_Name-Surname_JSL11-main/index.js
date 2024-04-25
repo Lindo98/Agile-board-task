@@ -12,6 +12,7 @@ import { initialData } from "./initialData.js";
  * **********************************************************************************************************************************************/
 
 // Function checks if local storage already has data, if not it loads initialData to localStorage
+
 function initializeData() {
   if (!localStorage.getItem("tasks")) {
     localStorage.setItem("tasks", JSON.stringify(initialData));
@@ -107,6 +108,7 @@ let activeBoard = "";
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
+
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map((task) => task.board).filter(Boolean))];
@@ -254,7 +256,6 @@ function setupEventListeners() {
 
   // Show Add New Task Modal event listener
   elements.createNewTaskBtn.addEventListener("click", () => {
-    //console.log("create new task button clicked");
     toggleModal(true);
     elements.filterDiv.style.display = "block"; // Also show the filter overlay
   });
@@ -262,6 +263,7 @@ function setupEventListeners() {
   //Add new task form submission event listener
   elements.modalWindow.addEventListener("submit", (event) => {
     addTask(event);
+    location.reload();
   });
 }
 
@@ -269,10 +271,8 @@ function setupEventListeners() {
 function toggleModal(show, modal = elements.modalWindow) {
   if (show) {
     modal.style.display = "block";
-    //console.log(modal.style.display);
   } else {
     modal.style.display = "none";
-    //console.log(modal.style.display);
   }
 }
 
@@ -297,14 +297,9 @@ function addTask(event) {
     toggleModal(false);
     newTask.board = activeBoard;
 
-    elements.filterDiv.style.display = "none"; // Also hide the filter overlay
-    event.target.reset();
-
-    initialData.push(newTask);
-
-    localStorage.setItem("tasks", JSON.stringify(initialData));
-
     putTask(newTask);
+
+    refreshTasksUI;
   }
 }
 
@@ -338,7 +333,6 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  // console.log("task selected");
   elements.editTaskTitleInput.value = task.title;
   elements.editTaskDescInput.value = task.description;
   elements.editSelectStatus.value = task.status;
@@ -346,7 +340,6 @@ function openEditTaskModal(task) {
   toggleModal(true, elements.editTaskModal);
 
   elements.saveTaskChangesBtn.addEventListener("click", () => {
-    //console.log("save tasks button pressed");
     saveTaskChanges(task.id);
   });
 
