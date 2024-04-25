@@ -124,6 +124,7 @@ function fetchAndDisplayBoardsAndTasks() {
 }
 
 // Creates different boards in the DOM
+
 function displayBoards(boards) {
   elements.boardsContainer.innerHTML = "";
   boards.forEach((board) => {
